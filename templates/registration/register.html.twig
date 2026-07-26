@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte — GreenShop{% endblock %}
+
+{% block body %}
+    <section class="auth">
+        <div class="auth-card">
+            <h1>Créer un compte</h1>
+            <p class="auth-intro">Rejoignez GreenShop en quelques secondes.</p>
+
+            {{ form_start(registrationForm, {'attr': {'class': 'form'}}) }}
+
+            {{ form_row(registrationForm.email, {label: 'Adresse email'}) }}
+
+            {% include 'partials/_password_field.html.twig' with {
+                field: registrationForm.plainPassword
+            } %}
+
+            {{ form_row(registrationForm.agreeTerms, {label: "J'accepte les conditions d'utilisation"}) }}
+
+            <button class="btn btn-primary" type="submit">Créer mon compte</button>
+
+            {{ form_end(registrationForm) }}
+
+            <div class="auth-footer">
+                Déjà inscrit ? <a href="{{ path('app_login') }}">Se connecter</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

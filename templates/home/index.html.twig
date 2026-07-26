@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GreenShop — plantes d'intérieur{% endblock %}
+
+{% block body %}
+
+    <section class="hero">
+        <div class="shell">
+            <div class="hero-inner">
+                <p class="eyebrow">Serre & pépinière · Morbihan</p>
+
+                <h1>Des plantes qui <em>survivent</em> à leur nouveau salon.</h1>
+
+                <p>Nous n'expédions que ce que nous avons réussi à faire pousser nous-mêmes.
+                    Chaque plante part avec son étiquette d'origine, son besoin en lumière
+                    et son rythme d'arrosage.</p>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="{{ path('app_product_index') }}">Voir le catalogue</a>
+                    <a class="btn btn-outline" href="{{ path('app_about') }}">Qui nous sommes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="intro">
+        <div class="shell">
+
+            <div class="intro-head">
+                <p class="eyebrow">Comment ça marche</p>
+                <h2>Trois choses que nous faisons différemment.</h2>
+                <p>Rien de révolutionnaire — juste ce qui manque à la plupart
+                    des plantes achetées en ligne.</p>
+            </div>
+
+            <div class="intro-grid">
+                <div class="intro-item">
+                    <p class="eyebrow">Acclimatation</p>
+                    <h3>Six semaines en serre froide</h3>
+                    <p>Avant expédition, chaque plante passe en serre non chauffée.
+                        Celles qui n'encaissent pas ne sont pas vendues.</p>
+                </div>
+
+                <div class="intro-item">
+                    <p class="eyebrow">Transport</p>
+                    <h3>Expédiée dans son pot</h3>
+                    <p>Pas de rempotage à l'arrivée, pas de racines nues :
+                        la plante ne subit qu'un seul changement à la fois.</p>
+                </div>
+
+                <div class="intro-item">
+                    <p class="eyebrow">Après-vente</p>
+                    <h3>On répond aux photos</h3>
+                    <p>Une feuille jaunit ? Envoyez-nous une photo.
+                        On vous dit quoi faire, sans vous vendre autre chose.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="featured">
+        <div class="shell">
+
+            <div class="featured-head">
+                <div>
+                    <p class="eyebrow">Arrivées récentes</p>
+                    <h2>Sorties de serre cette semaine</h2>
+                </div>
+                <a class="btn btn-outline btn-small" href="{{ path('app_product_index') }}">
+                    Tout voir
+                </a>
+            </div>
+
+            <div class="products-grid">
+                {% for product in products %}
+                    {% include 'partials/_product_card.html.twig' with {
+                        product: product,
+                        available: stockMap[product.id]
+                    } %}
+                {% else %}
+                    <div class="empty">
+                        <h3>La serre est vide</h3>
+                        <p>Chargez les fixtures pour remplir le catalogue.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="shell cta-inner">
+            <h2>Vous ne savez pas par où commencer ?</h2>
+            <a class="btn btn-outline" href="{{ path('app_contact') }}">Décrivez-nous votre pièce</a>
+        </div>
+    </section>
+
+{% endblock %}

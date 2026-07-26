@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact — GreenShop{% endblock %}
+
+{% block body %}
+    <section class="shell" style="padding: 64px 0;">
+        <h1>Nous écrire</h1>
+
+        {{ form_start(form, {'attr': {'class': 'form'}}) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary" type="submit">Envoyer</button>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

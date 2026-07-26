@@ -1,0 +1,44 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block sidebar %}
+    {% include 'partials/_admin_menu.html.twig' %}
+{% endblock %}
+
+{% block admin_content %}
+    <h1>Plantes</h1>
+    <a class="btn btn-primary btn-small" href="{{ path('app_admin_product_new') }}">Ajouter une plante</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>Prix</th>
+            <th>Stock</th>
+            <th>Visible</th>
+            <th>Edition</th>
+            <th>Suppression</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category ? product.category.name : '—' }}</td>
+                <td>{{ product.price|number_format(2, ',', ' ') }} €</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.active ? 'oui' : 'non' }}</td>
+                <td><a class="btn btn-primary btn-small" href="{{ path('app_admin_product_edit', {id: product.id}) }}">Edit</a>
+                </td>
+                <td>
+                    <form method="post" action="{{ path('app_admin_product_delete', {id: product.id}) }}"
+                          onsubmit="return confirm('Supprimer {{ product.name }} définitivement ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete-product-' ~ product.id) }}">
+                        <button class="btn btn-small" type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion — GreenShop{% endblock %}
+
+{% block body %}
+    <section class="auth">
+        <div class="auth-card">
+            <h1>Connexion</h1>
+            <p class="auth-intro">Accédez à votre compte GreenShop.</p>
+
+            <form method="post" class="form">
+                {% if error %}
+                    <div class="flash flash-error">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <div>
+                    <label for="username">Email</label>
+                    <input type="email" value="{{ last_username }}" name="_username" id="username"
+                           autocomplete="email" required autofocus>
+                </div>
+
+                <div>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="_password" id="password"
+                           autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
+                       value="{{ csrf_token('authenticate') }}">
+
+                <div>
+                    <input type="checkbox" name="_remember_me" id="_remember_me">
+                    <label for="_remember_me">Se souvenir de moi</label>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Se connecter</button>
+            </form>
+
+            <div class="auth-footer">
+                Pas encore de compte ? <a href="{{ path('app_register') }}">Créer un compte</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

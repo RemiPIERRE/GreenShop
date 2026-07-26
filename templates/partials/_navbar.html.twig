@@ -1,0 +1,29 @@
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a class="logo" href="{{ path('app_home') }}">Green<span>Shop</span></a>
+
+        <ul class="nav-links">
+            <li><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li><a href="{{ path('app_product_index') }}">Catalogue</a></li>
+            <li><a href="{{ path('app_about') }}">À propos</a></li>
+            <li><a href="{{ path('app_contact') }}">Contact</a></li>
+            {% if app.user %}
+                <li>
+                    <a href="{{ path('app_cart_index') }}" class="nav-cart">
+                        Panier
+                        {% if cart_count() > 0 %}
+                            <span class="cart-badge">{{ cart_count() }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a class="nav-admin" href="{{ path('app_admin_index') }}">Admin</a></li>
+                {% else %}
+                    <li><a class="nav-admin" href="{{ path('app_account_index') }}">Mon compte</a></li>
+                {% endif %}
+            {% else %}
+                <li><a class="nav-admin" href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

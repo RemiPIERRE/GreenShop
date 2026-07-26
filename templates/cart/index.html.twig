@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier — GreenShop{% endblock %}
+
+{% block body %}
+    <section class="cart shell">
+        <h1>Mon panier</h1>
+
+        {% if items|length > 0 %}
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <th colspan="2">Plante</th>
+                    <th class="num">Prix</th>
+                    <th class="num">Quantité</th>
+                    <th class="num">Sous-total</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td class="cell-thumb">
+                            <div class="thumb">
+                                {% if item.product.image %}
+                                    <img src="{{ asset('uploads/products/' ~ item.product.image) }}"
+                                         alt="{{ item.product.name }}">
+                                {% else %}
+                                    {{ item.product.name|first|upper }}
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ path('app_product_show', {id: item.product.id}) }}">
+                                {{ item.product.name }}
+                            </a>
+                        </td>
+                        <td class="num">{{ item.product.price|number_format(2, ',', ' ') }} €</td>
+                        <td>
+                            <div class="cart-qty">
+                                <form method="post" action="{{ path('app_cart_update_quantity', {id: item.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('cart-qty-' ~ item.id) }}">
+                                    <button type="submit" name="action" value="dec" class="qty-btn">−</button>
+                                </form>
+
+                                <span class="qty-value">{{ item.quantity }}</span>
+
+                                <form method="post" action="{{ path('app_cart_update_quantity', {id: item.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('cart-qty-' ~ item.id) }}">
+                                    <button type="submit" name="action" value="inc" class="qty-btn">+</button>
+                                </form>
+                            </div>
+                        </td>
+                        <td class="num">
+                            {{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €
+                        </td>
+                        <td class="num">
+                            <form method="post"
+                                  action="{{ path('app_cart_remove', {id: item.id}) }}">
+                                <input type="hidden" name="_token"
+                                       value="{{ csrf_token('cart-remove-' ~ item.id) }}">
+                                <button class="btn btn-outline btn-small" type="submit">Retirer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4" class="num total-label">Total</td>
+                    <td class="num total-value">{{ total|number_format(2, ',', ' ') }} €</td>
+                    <td colspan="2"></td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <div class="cart-actions">
+                <a class="btn btn-outline" href="{{ path('app_product_index') }}">
+                    Continuer mes achats
+                </a>
+                <a class="btn btn-primary" href="{{ path('app_cart_checkout') }}">
+                    Valider ma commande
+                </a>
+            </div>
+        {% else %}
+            <div class="cart-empty">
+                <p>Votre panier est vide.</p>
+                <a class="btn btn-primary" href="{{ path('app_product_index') }}">
+                    Découvrir le catalogue
+                </a>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

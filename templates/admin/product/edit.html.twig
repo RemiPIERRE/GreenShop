@@ -1,0 +1,11 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block sidebar %}{% include 'partials/_admin_menu.html.twig' %}{% endblock %}
+
+{% block admin_content %}
+    <h1>Nouvelle plante</h1>
+    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary" type="submit">Enregistrer les modifications</button>
+    {{ form_end(form) }}
+{% endblock %}

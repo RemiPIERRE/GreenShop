@@ -1,0 +1,98 @@
+{% extends 'base_account.html.twig' %}
+
+{% block title %}Mon compte — GreenShop{% endblock %}
+
+{% block account_content %}
+
+    <h1>Bonjour {{ app.user.profile.firstName }}</h1>
+    <p class="dash-intro">{{ app.user.email }}</p>
+    
+    <div class="stat-row">
+        <div class="stat">
+            <span class="stat-value">{{ orderCount }}</span>
+            <span class="stat-label">Commande{{ orderCount > 1 ? 's' }}</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">{{ totalSpent|number_format(2, ',', ' ') }} €</span>
+            <span class="stat-label">Dépensé au total</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">{{ plantCount }}</span>
+            <span class="stat-label">Plante{{ plantCount > 1 ? 's' }} adoptée{{ plantCount > 1 ? 's' }}</span>
+        </div>
+    </div>
+
+    <div class="dash-grid">
+
+        <div class="dash-card">
+            <h2>Mes coordonnées</h2>
+
+            <dl class="info-list">
+                <dt>Nom</dt>
+                <dd>{{ app.user.profile.firstName }} {{ app.user.profile.lastName }}</dd>
+
+                <dt>Adresse</dt>
+                <dd>
+                    {% if app.user.profile.address %}
+                        {{ app.user.profile.address }}<br>
+                        {{ app.user.profile.zipCode }} {{ app.user.profile.city }}
+                    {% else %}
+                        <span class="info-missing">Non renseignée</span>
+                    {% endif %}
+                </dd>
+
+                <dt>Téléphone</dt>
+                <dd>
+                    {{ app.user.profile.phone ?: '<span class="info-missing">Non renseigné</span>'|raw }}
+                </dd>
+            </dl>
+
+            <a class="btn btn-outline btn-small" href="{{ path('app_account_profile') }}">
+                Modifier
+            </a>
+        </div>
+
+        <div class="dash-card">
+            <h2>Dernière commande</h2>
+
+            {% if lastOrder %}
+                <p class="order-ref">
+                    {{ lastOrder.reference }}
+                    <span class="badge {{ lastOrder.status.badgeClass }}">{{ lastOrder.status.label }}</span>
+                </p>
+                <p class="order-date">
+                    Passée le {{ lastOrder.createdAt|date('d/m/Y') }} ·
+                    {{ lastOrder.total|number_format(2, ',', ' ') }} €
+                </p>
+
+                <div class="thumb-row">
+                    {% for item in lastOrder.items %}
+                        <div class="thumb" title="{{ item.product.name }}">
+                            {% if item.product.image %}
+                                <img src="{{ asset('uploads/products/' ~ item.product.image) }}"
+                                     alt="{{ item.product.name }}">
+                            {% else %}
+                                {{ item.product.name|first|upper }}
+                            {% endif %}
+                            {% if item.quantity > 1 %}
+                                <span class="thumb-qty">×{{ item.quantity }}</span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <a class="btn btn-outline btn-small"
+                   href="{{ path('app_account_order_show', {id: lastOrder.id}) }}">
+                    Voir le détail
+                </a>
+            {% else %}
+                <p class="info-missing">Aucune commande pour le moment.</p>
+                <a class="btn btn-primary btn-small" href="{{ path('app_product_index') }}">
+                    Découvrir le catalogue
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

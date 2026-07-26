@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moins de {{ maxPrice }} € — GreenShop{% endblock %}
+
+{% block body %}
+
+    <section class="catalogue">
+        <div class="shell">
+
+            <div class="catalogue-head">
+                <div>
+                    <p class="eyebrow">Filtre</p>
+                    <h1>Moins de {{ maxPrice }} €</h1>
+                    <p class="catalogue-count">{{ products|length }} plante(s) sous ce prix</p>
+                </div>
+
+                <form class="search-form" method="get" action="{{ path('app_product_filter') }}">
+                    <input type="number" name="maxPrice" value="{{ maxPrice }}" min="1" step="1"
+                           aria-label="Prix maximum en euros">
+                    <button class="btn btn-primary btn-small" type="submit">Filtrer</button>
+                </form>
+            </div>
+
+            <div class="products-grid">
+                {% for product in products %}
+                    {% include 'partials/_product_card.html.twig' %}
+                {% else %}
+                    <div class="empty">
+                        <h3>Rien sous ce prix</h3>
+                        <p>Montez le plafond pour voir plus de plantes.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

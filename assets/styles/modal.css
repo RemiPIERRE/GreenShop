@@ -1,0 +1,71 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 37, 28, 0.55);
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+    padding: 24px;
+    animation: modal-fade .18s ease;
+}
+
+.modal {
+    background: var(--paper);
+    border-radius: 4px;
+    padding: 34px 36px;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 24px 60px rgba(16, 37, 28, .25);
+    animation: modal-rise .22s ease;
+}
+
+.modal p {
+    font-size: 1.1rem;
+    margin-bottom: 26px;
+    line-height: 1.4;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-actions form {
+    margin: 0;
+    flex: 1;
+}
+
+.modal-actions .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.modal-actions > .btn {
+    flex: 1;
+}
+
+@keyframes modal-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-rise {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-actions {
+        flex-direction: column;
+    }
+}

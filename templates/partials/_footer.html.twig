@@ -1,0 +1,35 @@
+<footer class="footer">
+    <div class="shell">
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+                <h3>GreenShop</h3>
+                <p>Plantes d'intérieur choisies une à une, expédiées en pot,
+                    avec leur étiquette d'origine et de quoi les garder en vie.</p>
+            </div>
+
+            <div>
+                <h4>Boutique</h4>
+                <ul>
+                    <li><a href="{{ path('app_product_index') }}">Tout le catalogue</a></li>
+                    <li><a href="{{ path('app_product_search') }}">Rechercher</a></li>
+                    <li><a href="{{ path('app_product_filter') }}?maxPrice=20">Moins de 20 €</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>La maison</h4>
+                <ul>
+                    <li><a href="{{ path('app_about') }}">À propos</a></li>
+                    <li><a href="{{ path('app_contact') }}">Nous écrire</a></li>
+                    <li><a href="{{ path('app_admin_index') }}">Administration</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-base">
+            GreenShop — projet d'apprentissage Symfony · {{ "now"|date("Y") }}
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,123 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}
+    Administration
+{% endblock %}
+
+{% block admin_content %}
+
+    <h1>Commandes</h1>
+    <details class="archive-block" open>
+        <summary>Commandes En cours ({{ orders|length }})</summary>
+        <div class="filters">
+            <a href="{{ path('app_admin_order_index') }}"
+               class="{{ currentStatus is null ? 'is-active' }}">Toutes</a>
+            {% for case in statuses %}
+                <a href="{{ path('app_admin_order_index', {status: case.value}) }}"
+                   class="{{ currentStatus == case.value ? 'is-active' }}">{{ case.label }}</a>
+            {% endfor %}
+        </div>
+        {% if orders|length > 0 %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Référence</th>
+                    <th>Date</th>
+                    <th>Articles</th>
+                    <th class="num">Total</th>
+                    <th>Statut</th>
+                    <th>Mise à jour</th>
+                    <th>Modification</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td class="mono">{{ order.reference }}</td>
+                        <td>{{ order.createdAt|date('d/m/Y') }}</td>
+                        <td>
+                            {% set articles = 0 %}
+                            {% for item in order.items %}
+                                {% set articles = articles + item.quantity %}
+                            {% endfor %}
+                            {{ articles }}
+                        </td>
+                        <td class="num">{{ order.total|number_format(2, ',', ' ') }} €</td>
+                        <td>
+                            <span class="badge {{ order.status.badgeClass }}">{{ order.status.label }}</span>
+                        </td>
+                        <td>
+                            {% if order.status.next %}
+                                <form method="post" action="{{ path('app_admin_order_status', {id: order.id}) }}">
+                                    <input type="hidden" name="status" value="{{ order.status.next.value }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('status-' ~ order.id) }}">
+                                    <button class="btn btn-primary btn-small" type="submit">
+                                        Marquer {{ order.status.next.label|lower }}
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="{{ path('app_admin_order_archive', {id: order.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('archive-' ~ order.id) }}">
+                                    <button class="btn btn-outline btn-small" type="submit">Archiver</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="post" action="{{ path('app_admin_order_status', {id: order.id}) }}">
+                                <select name="status">
+                                    {% for case in statuses %}
+                                        <option value="{{ case.value }}" {{ case == order.status ? 'selected' }}>
+                                            {{ case.label }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="_token" value="{{ csrf_token('status-' ~ order.id) }}">
+                                <button type="submit">Valider</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="dash-empty">
+                <p>Il n'y a aucune commande pour le moment.</p>
+            </div>
+        {% endif %}
+    </details>
+    <details class="archive-block">
+        <summary>Commandes archivées ({{ archivedOrders|length }})</summary>
+        {% if archivedOrders|length > 0 %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Référence</th>
+                    <th>Date</th>
+                    <th>Articles</th>
+                    <th class="num">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in archivedOrders %}
+                    <tr>
+                        <td class="mono">{{ order.reference }}</td>
+                        <td>{{ order.createdAt|date('d/m/Y') }}</td>
+                        <td>
+                            {% set articles = 0 %}
+                            {% for item in order.items %}
+                                {% set articles = articles + item.quantity %}
+                            {% endfor %}
+                            {{ articles }}
+                        </td>
+                        <td class="num">{{ order.total|number_format(2, ',', ' ') }} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="dash-empty">
+                <p>Il n'y a aucune commande archivée pour le moment.</p>
+            </div>
+        {% endif %}
+    </details>
+{% endblock %}

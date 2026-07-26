@@ -1,0 +1,149 @@
+.hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 90px 0 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(100deg, var(--ink) 34%, rgba(16, 37, 28, .82) 58%, rgba(16, 37, 28, .45) 100%),
+    url('/images/hero.jpg');
+    background-size: cover;
+    background-position: center right;
+    pointer-events: none;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 660px;
+}
+
+.hero .eyebrow {
+    color: var(--growth);
+}
+
+.hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    margin: 18px 0 22px;
+}
+
+.hero h1 em {
+    font-style: italic;
+    color: var(--growth);
+}
+
+.hero p {
+    font-size: 1.15rem;
+    color: #B9C6B5;
+    max-width: 52ch;
+    margin-bottom: 34px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.hero .btn-outline {
+    color: var(--paper);
+    border-color: #46594C;
+}
+
+.hero .btn-outline:hover {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.intro {
+    padding: 84px 0;
+}
+
+.intro-head {
+    max-width: 60ch;
+    margin-bottom: 48px;
+}
+
+.intro-head h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+    margin: 14px 0 16px;
+}
+
+.intro-head p {
+    color: var(--muted);
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border-block: 1px solid var(--line);
+}
+
+.intro-item {
+    background: var(--paper);
+    padding: 30px 26px;
+}
+
+.intro-item h3 {
+    font-size: 1.25rem;
+    margin: 12px 0 8px;
+}
+
+.intro-item p {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.featured {
+    padding: 0 0 84px;
+}
+
+.featured-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 34px;
+}
+
+.featured-head h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-top: 10px;
+}
+
+.cta {
+    background: var(--growth);
+    color: var(--ink);
+    padding: 64px 0;
+}
+
+.cta-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.cta h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    max-width: 22ch;
+}
+
+.cta .btn-outline:hover {
+    background: var(--ink);
+    color: var(--growth);
+}
+
+@media (max-width: 880px) {
+    .intro-grid {
+        grid-template-columns: 1fr;
+    }
+}

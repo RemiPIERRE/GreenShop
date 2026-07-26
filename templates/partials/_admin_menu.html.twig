@@ -1,0 +1,18 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<ul class="dash-menu">
+    <li>
+        <a href="{{ path('app_admin_index') }}"
+           class="{{ route == 'app_admin_index' ? 'is-active' }}">Tableau de bord</a>
+    </li>
+    <li>
+        <a href="{{ path('app_admin_order_index') }}">Commandes</a>
+    </li>
+    <li>
+        <a href="{{ path('app_admin_plants') }}"
+           class="{{ route starts with 'app_admin_product' or route == 'app_admin_plants' ? 'is-active' }}">Plantes</a>
+    </li>
+    <li>
+        <a class="dash-exit" href="{{ path('app_logout') }}">Déconnexion</a>
+    </li>
+</ul>

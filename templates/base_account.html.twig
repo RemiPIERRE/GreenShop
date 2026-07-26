@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block flashes %}{% endblock %}
+
+{% block body %}
+    <div class="dash-layout">
+        <aside class="dash-sidebar">
+            {% include 'partials/_account_menu.html.twig' %}
+        </aside>
+
+        <main class="dash-content">
+            {% include 'partials/_flashes.html.twig' %}
+            {% block account_content %}{% endblock %}
+        </main>
+    </div>
+{% endblock %}

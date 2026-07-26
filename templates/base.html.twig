@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}GreenShop{% endblock %}</title>
+
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.1em%22 font-size=%22104%22>🌿</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Karla:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}
+            {{ importmap('app') }}
+        {% endblock %}
+    {% endblock %}
+</head>
+
+<body>
+<div class="page">
+    {% include 'partials/_navbar.html.twig' %}
+
+    <div class="page-body">
+        {% block flashes %}
+            {% include 'partials/_flashes.html.twig' %}
+        {% endblock %}
+
+        {% for productName in app.flashes('cart_added') %}
+            <div class="modal-overlay">
+                <div class="modal">
+                    <p><strong>{{ productName }}</strong> a été ajouté à votre panier.</p>
+                    <div class="modal-actions">
+                        <form method="post" action="{{ path('app_cart_continue') }}">
+                            <button class="btn btn-outline" type="submit">Continuer mes achats</button>
+                        </form>
+                        <a class="btn btn-primary" href="{{ path('app_cart_index') }}">Voir le panier</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    {% include 'partials/_footer.html.twig' %}
+</div>
+</body>
+</html>

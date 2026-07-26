@@ -1,0 +1,22 @@
+{% extends 'base_account.html.twig' %}
+
+{% block title %}Complétez votre profil{% endblock %}
+
+{% block account_content %}
+    <section class="auth">
+        <div class="auth-card">
+
+            {% set isNew = form.vars.data.id is null %}
+
+            <h2>{{ isNew ? 'Compléter mon profil' : 'Mes informations' }}</h2>
+
+            {{ form_start(form, {'attr': {'class': 'form'}}) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-primary" type="submit">
+                {{ isNew ? 'Créer mon profil' : 'Mettre à jour' }}
+            </button>
+            {{ form_end(form) }}
+
+        </div>
+    </section>
+{% endblock %}

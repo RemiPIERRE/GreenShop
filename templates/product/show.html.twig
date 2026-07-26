@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name|capitalize }} — GreenShop{% endblock %}
+
+{% block body %}
+
+    <section class="product-show">
+        <div class="shell">
+
+            <p class="breadcrumb">
+                <a href="{{ path('app_product_index') }}">Catalogue</a> /
+                {{ product.name|capitalize }}
+            </p>
+
+            <div class="product-layout">
+
+                <div class="product-visual"{% if not product.image %} aria-hidden="true"{% endif %}>
+                    {% if product.image %}
+                        <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="{{ product.name }}">
+                    {% else %}
+                        {{ product.name|first|upper }}
+                    {% endif %}
+                </div>
+
+                <div class="product-detail">
+                    <p class="eyebrow">Réf. {{ product.slug }}</p>
+                    <h1>{{ product.name|capitalize }}</h1>
+
+                    <p class="product-price">{{ product.price|number_format(2, ',', ' ') }} €</p>
+
+                    <p>{{ product.description }}</p>
+
+                    <div class="product-meta">
+                        <div>
+                            Disponibilité
+                            <span class="{{ available > 0 ? 'in-stock' : 'out-stock' }}">
+                                {{ available > 0 ? available ~ ' en pot' : 'Épuisé' }}
+                            </span>
+                        </div>
+                        <div>
+                            Sortie de serre
+                            <span>{{ product.createdAt|date('d/m/Y') }}</span>
+                        </div>
+                    </div>
+
+                    {% if product.stock > 0 %}
+                        <a class="btn btn-primary" href="{{ path('app_product_add_to_cart', {id: product.id}) }}">
+                            Ajouter au panier
+                        </a>
+                    {% else %}
+                        <span class="btn btn-outline" aria-disabled="true">Prochaine récolte à venir</span>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

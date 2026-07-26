@@ -1,0 +1,244 @@
+.cart {
+    padding: 56px 0 84px;
+    max-width: 900px;
+}
+
+.cart h1 {
+    font-size: clamp(2rem, 4vw, 2.6rem);
+    margin-bottom: 32px;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-table thead th {
+    font-family: var(--data);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+}
+
+.cart-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+}
+
+.cart-table .num {
+    font-family: var(--data);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.cart-table tbody tr:hover {
+    background: var(--paper-raised);
+}
+
+.cart-table a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cart-table a:hover {
+    color: var(--growth-deep);
+}
+
+.cell-thumb {
+    width: 66px;
+}
+
+.cart-table .thumb {
+    width: 54px;
+    height: 54px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 120%, #2C4034 0%, var(--ink) 70%);
+    display: grid;
+    place-items: center;
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--growth);
+}
+
+.cart-table .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cart-qty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.cart-qty form {
+    margin: 0;
+    display: flex;
+}
+
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    line-height: 1;
+    font-family: var(--body);
+    color: var(--ink);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease;
+}
+
+.qty-btn:hover {
+    background: var(--growth);
+    border-color: var(--growth);
+}
+
+.qty-value {
+    min-width: 28px;
+    text-align: center;
+    font-family: var(--data);
+    font-size: 0.95rem;
+}
+
+.countdown {
+    font-family: var(--data);
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 3px 8px;
+    white-space: nowrap;
+}
+
+.countdown.is-urgent {
+    color: #B4402A;
+    border-color: #E0B8B0;
+    background: #FBF2F0;
+}
+
+.cart-table tfoot td {
+    border-bottom: none;
+    padding-top: 18px;
+}
+
+.cart-table .total-label {
+    font-family: var(--data);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+}
+
+.cart-table .total-value {
+    font-family: var(--data);
+    font-size: 1.35rem;
+    color: var(--ink);
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 70px 24px;
+    border: 1px dashed var(--line);
+    border-radius: 3px;
+}
+
+.cart-empty p {
+    color: var(--muted);
+    margin-bottom: 22px;
+    font-size: 1.05rem;
+}
+
+.cart-table form.cart-remove {
+    margin: 0;
+}
+
+.cart-table th:nth-child(3),
+.cart-table .cart-qty {
+    text-align: center;
+}
+
+.nav-cart {
+    position: relative;
+}
+
+.cart-badge {
+    display: inline-grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    margin-left: 4px;
+    background: var(--growth);
+    color: var(--ink);
+    font-family: var(--data);
+    font-size: 0.68rem;
+    border-radius: 9px;
+    vertical-align: middle;
+}
+
+@media (max-width: 720px) {
+    .cart-table thead {
+        display: none;
+    }
+
+    .cart-table,
+    .cart-table tbody,
+    .cart-table tr,
+    .cart-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .cart-table tr {
+        border: 1px solid var(--line);
+        border-radius: 3px;
+        margin-bottom: 14px;
+        padding: 8px;
+    }
+
+    .cart-table td {
+        border: none;
+        text-align: left;
+        padding: 6px 8px;
+    }
+
+    .cart-table .num {
+        text-align: left;
+    }
+
+    .cart-qty {
+        justify-content: flex-start;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+    }
+
+    .cart-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,235 @@
+@import "navbar.css";
+@import "home.css";
+@import "product.css";
+@import "form.css";
+@import "auth.css";
+@import "dashboard.css";
+@import "account.css";
+@import "cart.css";
+@import 'modal.css';
+
+:root {
+
+    --ink: #10251C;
+    --ink-soft: #2C4034;
+    --paper: #EFEDE3;
+    --paper-raised: #F8F7F1;
+    --line: #D9D7C9;
+    --growth: #B4D22A;
+    --growth-deep: #93AC1E;
+    --muted: #6E7A6A;
+
+    /* Typographie */
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Karla', system-ui, sans-serif;
+    --data: 'DM Mono', ui-monospace, monospace;
+
+    --shell: 1180px;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body), serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: 24px;
+}
+
+h1, h2, h3 {
+    font-family: var(--display), serif;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.eyebrow {
+    font-family: var(--data), serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+}
+
+.btn {
+    display: inline-block;
+    font-family: var(--body), serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.btn-primary {
+    background: var(--growth);
+    color: var(--ink);
+}
+
+.btn-primary:hover {
+    background: var(--growth-deep);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+}
+
+.btn-outline:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.btn-small {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+}
+
+.flash {
+    max-width: var(--shell);
+    margin: 20px auto 0;
+    padding: 14px 18px;
+    border-left: 4px solid;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+.flash-success {
+    background: #E4EFC8;
+    border-color: var(--growth-deep);
+    color: #33430A;
+}
+
+.flash-error {
+    background: #F6DED9;
+    border-color: #B4402A;
+    color: #6B2013;
+}
+
+.flash-warning {
+    background: #F0E4C4;
+    color: #6B5310;
+    border-left: 3px solid #C9A227;
+}
+
+.footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 60px 0 28px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-brand h3 {
+    font-size: 1.6rem;
+    color: var(--growth);
+    margin-bottom: 10px;
+}
+
+.footer-brand p {
+    color: #9FAE9C;
+    max-width: 34ch;
+}
+
+.footer h4 {
+    font-family: var(--data), serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--growth);
+    margin-bottom: 14px;
+}
+
+.footer ul {
+    list-style: none;
+}
+
+.footer li {
+    margin-bottom: 8px;
+}
+
+.footer a {
+    color: #C9D4C6;
+    text-decoration: none;
+    transition: color .18s ease;
+}
+
+.footer a:hover {
+    color: var(--growth);
+}
+
+.footer-base {
+    margin-top: 44px;
+    padding-top: 20px;
+    border-top: 1px solid #24382D;
+    font-family: var(--data), serif;
+    font-size: 0.75rem;
+    color: #7C8B79;
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--growth);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+@media (max-width: 780px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+}

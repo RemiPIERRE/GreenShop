@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement — GreenShop{% endblock %}
+
+{% block body %}
+    <section class="checkout shell">
+        <h1>Finaliser ma commande</h1>
+
+        <div class="checkout-layout">
+
+            {# Récapitulatif #}
+            <div class="checkout-summary">
+                <h2>Votre commande</h2>
+                <ul class="checkout-items">
+                    {% for item in items %}
+                        <li>
+                            <span>{{ item.quantity }} × {{ item.product.name }}</span>
+                            <span class="num">
+                                {{ (item.product.price * item.quantity)|number_format(2, ',', ' ') }} €
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="checkout-total">
+                    <span>Total</span>
+                    <span class="num">{{ total|number_format(2, ',', ' ') }} €</span>
+                </div>
+            </div>
+
+            {# Faux formulaire de paiement #}
+            <div class="checkout-payment">
+                <h2>Paiement</h2>
+                <p class="checkout-note">Démonstration — aucun paiement réel ne sera effectué.</p>
+
+                <form method="post" action="{{ path('app_cart_pay') }}" class="form">
+                    <input type="hidden" name="_token" value="{{ csrf_token('checkout') }}">
+
+                    <div>
+                        <label for="card_name">Nom sur la carte</label>
+                        <input type="text" id="card_name" name="card_name" required>
+                    </div>
+
+                    <div>
+                        <label for="card_number">Numéro de carte</label>
+                        <input type="text" id="card_number" name="card_number"
+                               placeholder="4242 4242 4242 4242" required>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">
+                        Payer {{ total|number_format(2, ',', ' ') }} €
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

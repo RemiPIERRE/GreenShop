@@ -1,0 +1,74 @@
+{% extends 'base_account.html.twig' %}
+
+{% block title %}{{ order.reference }} — GreenShop{% endblock %}
+
+{% block account_content %}
+
+    <p class="breadcrumb">
+        <a href="{{ path('app_account_orders') }}">Mes commandes</a> / {{ order.reference }}
+    </p>
+
+    <h1>{{ order.reference }}</h1>
+    <p class="dash-intro">Commande passée le {{ order.createdAt|date('d/m/Y à H\\hi') }}</p>
+
+    {# ---------- Frise de suivi : l'étape courante et celles franchies ---------- #}
+    {% set steps = {'EP': 'En préparation', 'EX': 'Expédiée', 'LV': 'Livrée'} %}
+    {% set reached = {'EP': 1, 'EX': 2, 'LV': 3} %}
+    {% set current = reached[order.status.value] %}
+
+    <ol class="track">
+        {% for code, label in steps %}
+            <li class="track-step {{ reached[code] <= current ? 'is-done' }}">
+                <span class="track-dot"></span>
+                <span class="track-label">{{ label }}</span>
+            </li>
+        {% endfor %}
+    </ol>
+
+    {# ---------- Le détail des lignes ---------- #}
+    <table>
+        <thead>
+        <tr>
+            <th colspan="2">Plante</th>
+            <th class="num">Prix unitaire</th>
+            <th class="num">Quantité</th>
+            <th class="num">Sous-total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order.items %}
+            <tr>
+                <td class="cell-thumb">
+                    <div class="thumb">
+                        {% if item.product.image %}
+                            <img src="{{ asset('uploads/products/' ~ item.product.image) }}"
+                                 alt="{{ item.product.name }}">
+                        {% else %}
+                            {{ item.product.name|first|upper }}
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    <a href="{{ path('app_product_show', {id: item.product.id}) }}">
+                        {{ item.product.name }}
+                    </a>
+                </td>
+                <td class="num">{{ item.unitPrice|number_format(2, ',', ' ') }} €</td>
+                <td class="num">{{ item.quantity }}</td>
+                <td class="num">{{ item.subtotal|number_format(2, ',', ' ') }} €</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4" class="num total-label">Total</td>
+            <td class="num total-value">{{ order.total|number_format(2, ',', ' ') }} €</td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <p class="reprint-note">
+        Les prix affichés sont ceux appliqués au moment de la commande.
+    </p>
+
+{% endblock %}

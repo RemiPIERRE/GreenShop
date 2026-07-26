@@ -1,0 +1,89 @@
+.form {
+    max-width: 560px;
+}
+
+.form > div {
+    margin-bottom: 20px;
+}
+
+.form label {
+    display: block;
+    font-family: var(--data), serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 3px;
+    margin-top: 12px;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="number"],
+.form input[type="password"],
+.form textarea,
+.form select {
+    width: 100%;
+    font-family: var(--body), serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 11px 13px;
+}
+
+.form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+    outline: 2px solid var(--growth);
+    outline-offset: 0;
+    border-color: transparent;
+}
+
+.form input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--growth-deep);
+}
+
+.form ul {
+    list-style: none;
+    margin-top: 4px;
+}
+
+.form li {
+    font-size: 0.85rem;
+    color: #B4402A;
+}
+
+.pwd-rules {
+    list-style: none;
+    margin-top: 10px;
+    font-size: 0.82rem;
+}
+
+.pwd-rules li {
+    color: var(--muted);
+    padding: 2px 0;
+    transition: color .15s ease;
+}
+
+.pwd-rules li.valid {
+    color: var(--growth-deep);
+}
+
+.pwd-rules li.invalid {
+    color: #B4402A;
+}
+
+.pwd-icon {
+    display: inline-block;
+    width: 1.2em;
+    font-weight: 700;
+}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche — GreenShop{% endblock %}
+
+{% block body %}
+
+    <section class="catalogue">
+        <div class="shell">
+
+            <div class="catalogue-head">
+                <div>
+                    <p class="eyebrow">Recherche</p>
+                    <h1>{{ terme ? '« ' ~ terme ~ ' »' : 'Tout le catalogue' }}</h1>
+                    <p class="catalogue-count">{{ products|length }} résultat(s)</p>
+                </div>
+
+                <form class="search-form" method="get" action="{{ path('app_product_search') }}">
+                    <input type="search" name="q" value="{{ terme }}" placeholder="Chercher une plante…"
+                           aria-label="Chercher une plante">
+                    <button class="btn btn-primary btn-small" type="submit">Chercher</button>
+                </form>
+            </div>
+
+            <div class="products-grid">
+                {% for product in products %}
+                    {% include 'partials/_product_card.html.twig' %}
+                {% else %}
+                    <div class="empty">
+                        <h3>Aucune plante ne porte ce nom</h3>
+                        <p>Essayez un mot plus court, ou parcourez tout le catalogue.</p>
+                        <a class="btn btn-outline btn-small" href="{{ path('app_product_index') }}">
+                            Voir le catalogue
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

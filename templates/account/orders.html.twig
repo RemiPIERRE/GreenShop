@@ -1,0 +1,57 @@
+{% extends 'base_account.html.twig' %}
+
+{% block title %}Mes commandes — GreenShop{% endblock %}
+
+{% block account_content %}
+
+    <h1>Mes commandes</h1>
+    <p class="dash-intro">
+        {{ orders|length }} commande{{ orders|length > 1 ? 's' }} depuis la création de votre compte.
+    </p>
+
+    {% if orders|length > 0 %}
+        <table>
+            <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Date</th>
+                <th>Articles</th>
+                <th class="num">Total</th>
+                <th>Statut</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td class="mono">{{ order.reference }}</td>
+                    <td>{{ order.createdAt|date('d/m/Y') }}</td>
+                    <td>
+                        {% set articles = 0 %}
+                        {% for item in order.items %}
+                            {% set articles = articles + item.quantity %}
+                        {% endfor %}
+                        {{ articles }}
+                    </td>
+                    <td class="num">{{ order.total|number_format(2, ',', ' ') }} €</td>
+                    <td>
+                        <span class="badge {{ order.status.badgeClass }}">{{ order.status.label }}</span>
+                    </td>
+                    <td class="num">
+                        <a class="btn btn-outline btn-small"
+                           href="{{ path('app_account_order_show', {id: order.id}) }}">Détail</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="dash-empty">
+            <p>Vous n'avez pas encore commandé.</p>
+            <a class="btn btn-primary btn-small" href="{{ path('app_product_index') }}">
+                Découvrir le catalogue
+            </a>
+        </div>
+    {% endif %}
+
+{% endblock %}
