@@ -25,3 +25,6 @@
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
+
+# Fichier de référence auto-généré par Symfony (config:dump-reference) — pas de code perso, pas utile en repo
+/config/reference.php
